@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace ConsoleParkingSystem.Models
 {
@@ -47,6 +48,17 @@ namespace ConsoleParkingSystem.Models
             {
                 return "Slot is already free or does not exist";
             }
+        }
+
+        public string GetStatus()
+        {
+            var status = new StringBuilder();
+            status.AppendLine("Slot\tNo.\tType\tRegistration No\tColour");
+            foreach (var lot in parkingLots.Where(lot => !lot.IsAvailable))
+            {
+                status.AppendLine($"{lot.SlotNumber}\t{lot.ParkedVehicle.RegistrationNumber}\t{lot.ParkedVehicle.Type}\t{lot.ParkedVehicle.RegistrationNumber}\t{lot.ParkedVehicle.Color}");
+            }
+            return status.ToString();
         }
     }
 }
