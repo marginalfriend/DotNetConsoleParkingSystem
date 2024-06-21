@@ -17,13 +17,22 @@ namespace ConsoleParkingSystem
                     case "create_parking_lot":
                         if (command.Length != 2)
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Invalid amount of argument");
-                            Console.WriteLine("Usage: create_parking_lot <amount of parking lots>");
-                            Console.WriteLine("Example: create_parking_lot 5 <--- this will create 5 parking lots");
+                            Console.WriteLine("     Usage: create_parking_lot <amount of parking lots>");
+                            Console.WriteLine("     Example: create_parking_lot 5 <--- this will create 5 parking lots");
+
+                            Console.ResetColor();
+                            Console.WriteLine();
                             break;
                         } else if (int.Parse(command[1]) == null)
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+
                             Console.WriteLine("Invalid type: It has to be a number");
+
+                            Console.ResetColor();
+                            Console.WriteLine();
                             break;
                         }
                         int totalSlots = int.Parse(command[1]);
@@ -34,13 +43,23 @@ namespace ConsoleParkingSystem
                     case "park":
                         if (command.Length != 4)
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+
                             Console.WriteLine("Invalid amount of argument");
                             Console.WriteLine("Usage: park <regNumber> <color> <type>");
                             Console.WriteLine("Example: park B-123-XYZ RED Mobil");
+
+                            Console.ResetColor();
+                            Console.WriteLine();
                             break;
                         } else if (Enum.Parse<VehicleType>(command[3], true) == null)
                         {
+                            Console.ForegroundColor = ConsoleColor.Red;
+
                             Console.WriteLine("Invalid type: Only Mobil and Motor is accepted");
+
+                            Console.ResetColor();
+                            Console.WriteLine();
                             break;
                         }
                         string regNumber = command[1];
