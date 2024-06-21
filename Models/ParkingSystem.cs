@@ -11,26 +11,20 @@ namespace ConsoleParkingSystem.Models
 
         public ParkingSystem(int totalSlots)
         {
-            // Giving parkingLots a list value of ParkingLot
             parkingLots = new List<ParkingLot>();
-
-            // Adding new ParkingLots into the container as much as the parameter
             for (int i = 1; i <= totalSlots; i++)
             {
                 parkingLots.Add(new ParkingLot(i));
             }
         }
 
-        public string ParkVehicle(Vehicle vehicle) 
+        public string ParkVehicle(Vehicle vehicle)
         {
-            // FirstOrDefault will get
             var availableLot = parkingLots.FirstOrDefault(lot => lot.IsAvailable);
-
-            // public bool IsAvailable => ParkedVehicle == null;  <<<<<  This is the property IsAvailable in ParkingLot class
-            if (availableLot != null) 
+            if (availableLot != null)
             {
                 availableLot.ParkedVehicle = vehicle;
-                return $"Allocated slot number: {availableLot.SlotNumber}"
+                return $"Allocated slot number: {availableLot.SlotNumber}";
             }
             else
             {
@@ -63,7 +57,7 @@ namespace ConsoleParkingSystem.Models
             return status.ToString();
         }
 
-        public int GetVehicleCountByType(string type)
+        public int GetVehicleCountByType(VehicleType type)
         {
             return parkingLots.Count(lot => lot.ParkedVehicle?.Type == type);
         }
@@ -78,6 +72,15 @@ namespace ConsoleParkingSystem.Models
         }
 
         public string GetRegistrationNumbersByColor(string color)
+        {
+            var registrationNumbers = parkingLots
+                .Where(lot => !lot.IsAvailable && lot.ParkedVehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase))
+                .Select(lot => lot.ParkedVehicle.RegistrationNumber);
+
+            return string.Join(" ", registrationNumbers);
+        }
+
+        public string GetSlotNumbersByColor(string color)
         {
             var slotNumbers = parkingLots
                 .Where(lot => !lot.IsAvailable && lot.ParkedVehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase))

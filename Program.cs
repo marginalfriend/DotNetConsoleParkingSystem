@@ -15,6 +15,11 @@ namespace ConsoleParkingSystem
                 switch (command[0])
                 {
                     case "create_parking_lot":
+                        if (command.Length != 2)
+                        {
+                            Console.WriteLine("Invalid amount of argument");
+                            break;
+                        }
                         int totalSlots = int.Parse(command[1]);
                         parkingSystem = new ParkingSystem(totalSlots);
                         Console.WriteLine($"Created a parking lot with {totalSlots} slots");
