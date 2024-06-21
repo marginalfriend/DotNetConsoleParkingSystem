@@ -18,6 +18,12 @@ namespace ConsoleParkingSystem
                         if (command.Length != 2)
                         {
                             Console.WriteLine("Invalid amount of argument");
+                            Console.WriteLine("Usage: create_parking_lot <amount of parking lots>");
+                            Console.WriteLine("Example: create_parking_lot 5 <--- this will create 5 parking lots");
+                            break;
+                        } else if (int.Parse(command[1]) == null)
+                        {
+                            Console.WriteLine("Invalid type: It has to be a number");
                             break;
                         }
                         int totalSlots = int.Parse(command[1]);
@@ -26,6 +32,17 @@ namespace ConsoleParkingSystem
                         break;
 
                     case "park":
+                        if (command.Length != 4)
+                        {
+                            Console.WriteLine("Invalid amount of argument");
+                            Console.WriteLine("Usage: park <regNumber> <color> <type>");
+                            Console.WriteLine("Example: park B-123-XYZ RED Mobil");
+                            break;
+                        } else if (Enum.Parse<VehicleType>(command[3], true) == null)
+                        {
+                            Console.WriteLine("Invalid type: Only Mobil and Motor is accepted");
+                            break;
+                        }
                         string regNumber = command[1];
                         string color = command[2];
                         VehicleType type = Enum.Parse<VehicleType>(command[3], true);
