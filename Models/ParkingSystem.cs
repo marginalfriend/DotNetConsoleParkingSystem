@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace ConsoleParkingSystem.Models
         {
             // FirstOrDefault will get
             var availableLot = parkingLots.FirstOrDefault(lot => lot.IsAvailable);
+
             // public bool IsAvailable => ParkedVehicle == null;  <<<<<  This is the property IsAvailable in ParkingLot class
             if (availableLot != null) 
             {
@@ -59,6 +61,35 @@ namespace ConsoleParkingSystem.Models
                 status.AppendLine($"{lot.SlotNumber}\t{lot.ParkedVehicle.RegistrationNumber}\t{lot.ParkedVehicle.Type}\t{lot.ParkedVehicle.RegistrationNumber}\t{lot.ParkedVehicle.Color}");
             }
             return status.ToString();
+        }
+
+        public int GetVehicleCountByType(string type)
+        {
+            return parkingLots.Count(lot => lot.ParkedVehicle?.Type == type);
+        }
+
+        public string GetRegistrationNumbersByPlateType(bool isOdd)
+        {
+            var registrationNumbers = parkingLots
+                .Where(lot => !lot.IsAvailable && (int.Parse(lot.ParkedVehicle.RegistrationNumber.Split('-')[1]) % 2 == (isOdd ? 1 : 0)))
+                .Select(lot => lot.ParkedVehicle.RegistrationNumber);
+
+            return string.Join(" ", registrationNumbers);
+        }
+
+        public string GetRegistrationNumbersByColor(string color)
+        {
+            var slotNumbers = parkingLots
+                .Where(lot => !lot.IsAvailable && lot.ParkedVehicle.Color.Equals(color, StringComparison.OrdinalIgnoreCase))
+                .Select(lot => lot.SlotNumber);
+
+            return string.Join(" ", slotNumbers);
+        }
+
+        public string GetSlotNumberByRegistrationNumber(string registrationNumber)
+        {
+            var lot = parkingLots.FirstOrDefault(lot => !lot.IsAvailable && lot.ParkedVehicle.RegistrationNumber.Equals(registrationNumber, StringComparison.OrdinalIgnoreCase));
+            return lot != null ? lot.SlotNumber.ToString() : "Not found";
         }
     }
 }
