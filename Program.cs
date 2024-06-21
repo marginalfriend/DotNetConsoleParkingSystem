@@ -70,6 +70,18 @@ namespace ConsoleParkingSystem
                         break;
 
                     case "leave":
+                        if (command.Length != 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+
+                            Console.WriteLine("Invalid amount of argument");
+                            Console.WriteLine("Usage: leave <lot_number>");
+                            Console.WriteLine("Example: leave 2");
+
+                            Console.ResetColor();
+                            Console.WriteLine();
+                            break;
+                        }
                         int slotNumber = int.Parse(command[1]);
                         Console.WriteLine(parkingSystem.Leave(slotNumber));
                         break;
