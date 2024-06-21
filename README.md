@@ -28,7 +28,7 @@ $ park <registration_number> <color> <vehicle_type>
 ```
 Example:
 ```
-$ park B-1234-XYZ White Car
+$ park B-1234-XYZ White Mobil
 Allocated slot number: 1
 ```
 
@@ -56,11 +56,11 @@ Example:
 ```
 $ status
 Slot    No.         Type    Registration No Colour
-1       B-1234-XYZ  Car     White
-2       B-9999-XYZ  Bike    White
-3       D-0001-HIJ  Car     Black
-5       B-2701-XXX  Car     Blue
-6       B-3141-ZZZ  Bike    Black
+1       B-1234-XYZ  Mobil   White
+2       B-9999-XYZ  Motor   White
+3       D-0001-HIJ  Mobil   Black
+5       B-2701-XXX  Mobil   Blue
+6       B-3141-ZZZ  Motor   Black
 ```
 
 ### Reports
@@ -102,24 +102,24 @@ $ exit
 $ create_parking_lot 6
 Created a parking lot with 6 slots
 
-$ park B-1234-XYZ White Car
+$ park B-1234-XYZ White Mobil
 Allocated slot number: 1
 
-$ park B-9999-XYZ White Bike
+$ park B-9999-XYZ White Motor
 Allocated slot number: 2
 
 $ status
 Slot    No.         Type    Registration No Colour
-1       B-1234-XYZ  Car     White
-2       B-9999-XYZ  Bike    White
+1       B-1234-XYZ  Mobil   White
+2       B-9999-XYZ  Motor   White
 
 $ leave 1
 Slot number 1 is free
 
-$ park D-0001-HIJ Black Car
+$ park D-0001-HIJ Black Mobil
 Allocated slot number: 1
 
-$ type_of_vehicles Car
+$ type_of_vehicles Mobil
 2
 
 $ registration_numbers_for_vehicles_with_colour White
